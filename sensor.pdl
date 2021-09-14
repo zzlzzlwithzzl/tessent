@@ -1,0 +1,13 @@
+	iProcsForModule Sensor
+
+	iProc Read_Temperature {} {
+		iWrite 		en	1;
+		iApply;
+		
+		iRunLoop 	10	-tck;
+		
+		iRead		temp;
+		iWrite		en	0;
+		iApply;
+	}
+	

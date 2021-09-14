@@ -1,0 +1,163 @@
+STIL 1.0;
+
+Header  {
+Title "Chip_pa1_stil" ;
+  Date     "Thu May  2 21:49:46 2013" ;
+  Source  "Tessent Shell  2012.3" ;
+  History  {
+    Ann {*  Fault          : STUCK *}
+    Ann {*  Coverage       : 0.00(TC) 0.00(FC) *}
+    Ann {*  Begin_Verify_Section  *}
+    Ann {*    format            = STIL  *}
+    Ann {*    serial_flag       = OFF  *}
+    Ann {*    test_set_type     = CHAIN_TEST  *}
+    Ann {*    pad_value         = X  *}
+    Ann {*    pattern_begin     = 0  *}
+    Ann {*    pattern_end       = 0  *}
+    Ann {*    one_setup         = OFF  *}
+    Ann {*    no_initialization = OFF  *}
+    Ann {*    pattern_checksum  = 0  *}
+    Ann {*  End_Verify_Section  *}
+  }
+}
+
+Signals {
+  "en_SIB" In; "tck" In; "tdi" In; "tms" In; "trst" In; 
+  "tdo" Out; 
+  
+}
+
+SignalGroups {
+  _pi_ = '"en_SIB" + "tck" + "tdi" + "tms" + "trst"';
+  _po_ = '"tdo"';
+  input_time_gen_0 = '"en_SIB" + "tdi" + "tms" + "trst"';
+  input_time_gen_1 = '"tck"';
+}
+
+Timing STUCK_timing {
+  WaveformTable tset_gen_tp1  {
+    Period '100ns' ;
+    Waveforms  {
+      input_time_gen_0  { 01X { '0ns' D/U/N; }}
+      input_time_gen_1  { 01 { '0ns' D; '25ns' D/U; '75ns' D;}}
+      _po_ { LHXT { '0ns' X; '24ns' L/H/X/T;}}
+    }
+  }
+}
+MacroDefs {
+}
+
+PatternBurst scanpats {
+  PatList { scan_test; }
+}
+
+PatternExec {
+  Timing STUCK_timing;
+  PatternBurst scanpats;
+}
+
+
+Pattern scan_test  {
+  //Pattern:0  Vector:0  TesterCycle:0
+  Ann {* Pattern:0  Vector:0  TesterCycle:0 *}
+  W tset_gen_tp1;
+  V {
+       _pi_=X0X01;
+       _po_=X;
+  }
+  //Pattern:0  Vector:1  TesterCycle:1
+  Ann {* Pattern:0  Vector:1  TesterCycle:1 *}
+  Ann {* Pattern_set pat1 *}
+  Ann {* + System reset *}
+  "pattern 0":
+  V {
+       _pi_=01000;
+       _po_=X;
+  }
+  V {
+       _pi_=01001;
+       _po_=X;
+  }
+  Ann {* + Targets:
+  Apply 0
+    writes:
+       Sensor1.en  =  1
+
+
++ scan vector tdi..tdo (sib1.sr sib2.sr) *}
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11101;
+       _po_=X;
+  }
+  Ann {* + scan vector tdi..tdo (TDR_Sensor_1.SR[3:0] sib1.sr sib2.sr) *}
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11101;
+       _po_=X;
+  }
+  V {
+       _pi_=11101;
+       _po_=X;
+  }
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  Loop 10 {
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  }  // end loop
+  Ann {* + Targets:
+  Apply 0
+    reads:
+       Sensor1.temp[0]  =  x
+       Sensor1.temp[1]  =  x
+       Sensor1.temp[2]  =  x
+       Sensor1.temp[3]  =  x
+    writes:
+       Sensor1.en  =  0
+
+
++ scan vector tdi..tdo (TDR_Sensor_1.SR[3:0] sib1.sr sib2.sr) *}
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11101;
+       _po_=X;
+  }
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  V {
+       _pi_=11001;
+       _po_=X;
+  }
+  }

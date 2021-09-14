@@ -1,0 +1,54 @@
+goudurix <311> tessent -shell
+//  Tessent Shell  2012.3    Wed Sep 05 21:31:22 GMT 2012
+//                Copyright 2011-2012 Mentor Graphics Corporation
+//
+//                           All Rights Reserved.
+//
+//    THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION WHICH
+//  IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS AND IS
+//                        SUBJECT TO LICENSE TERMS.
+//
+//  Mentor Graphics software executing under x86-64 Linux.
+//  64 bit version
+//  Host: goudurix (1 x 2.2 GHz, 2044 MB RAM)
+//
+SETUP> set_context pattern -ijtag
+SETUP>  read_icl top.icl
+SETUP>  dofile sensor.pdl
+//  command: iProcsForModule Sensor
+//  command: iProc Read_Temperature {} {
+                iWrite          en      1;
+                iApply;
+
+                iRunLoop        10      -tck;
+
+                iRead           temp;
+                iWrite          en      0;
+                iApply;
+        }
+sensor.pdl
+SETUP>  dofile chip.pdl
+//  command: iProcsForModule Chip
+//  command: iProc Run {} {
+                iCall Chip.Sensor1.Read_Temperature();
+        }
+sensor.pdl
+SETUP>  set_current_design Chip
+//  Note: Top design is Chip.
+SETUP>  set_system_mode analysis
+ANALYSIS> open_pattern_set pat1
+ANALYSIS>  iCall Sensor1.Read_Temperature
+//  Warning: Inconsistent port group specification. The active scan port is a TAP interface, but the scan load does not involve any DR/IR multiplexer.
+//  Warning: Inconsistent port group specification. The active scan port is a TAP interface, but the scan load does not involve any DR/IR multiplexer.
+//  Warning: Inconsistent port group specification. The active scan port is a TAP interface, but the scan load does not involve any DR/IR multiplexer.
+ANALYSIS>  close_pattern_set
+ANALYSIS> report_pattern_sets
+
+//  name | timeplate | tester | tck   | tester | initial | network   | saved
+//       |           | period | ratio | cycles | iReset  | end state |
+//  -----+-----------+--------+-------+--------+---------+-----------+------
+//  pat1 | (default) | 100ns  | 1     | 26     | yes     | keep      | no
+
+ANALYSIS>  write_patterns pa1.stil -stil -pattern_set pat1
+ANALYSIS> write_patterns pa1.v -verilog -pattern_set pat1
+ANALYSIS> exit

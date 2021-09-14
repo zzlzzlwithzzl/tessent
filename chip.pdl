@@ -1,0 +1,6 @@
+	iProcsForModule Chip
+	
+	iProc Run {} {
+		iCall Chip.Sensor1.Read_Temperature();
+	}
+	

@@ -1,0 +1,67 @@
+//
+// Verilog format test patterns produced by Tessent Shell 2012.3
+// Filename       : pa1.v.0.vec
+// Idstamp        : 2012.3:ef73:18b2:0:0000
+// Fault          : STUCK
+// Coverage       : 0.00(TC) 0.00(FC)
+// Date           : Thu May  2 21:49:58 2013
+//
+// Format of broadside vector:
+//   PI_bits PO_bits MASK_bits Increment_bit Timeplate_bits(1) PatType_bits(3)
+//   VecType_bits(4)
+//   Increment_bit  - indicates when to increment pattern count
+//   Timeplate_bits - encodes timeplate number to use
+//   PatType_bits   - encodes pattern type
+//   VecType_bits   - encodes vector type
+// Simulation Cycle 0  Timestamp 0 ns
+X0X01X0010101011
+
+// Scan test block
+
+// Pattern 0 Cycle 1 Timestamp 100 ns 
+000000000000000000000000000001000110000
+// Pattern_set pat1 
+000000000000000000000000000101000110000
+// + System reset 
+01000X0Z10101011
+01001X0Z10101011
+// + Targets: 
+//   Apply 0 
+//     writes: 
+//        Sensor1.en  =  1 
+//  
+//  
+// + scan vector tdi..tdo (sib1.sr sib2.sr) 
+11001X0Z10101011
+11101X0Z10101011
+// + scan vector tdi..tdo (TDR_Sensor_1.SR[3:0] sib1.sr sib2.sr) 
+11001X0Z10101011
+11101X0Z10101011
+11101X0Z10101011
+11001X0Z10101011
+11001X0Z10101011
+// Simulation Cycle 10  Timestamp 1000 ns
+11001X0Z10101011
+000000000000000000000000000010101000000
+11001X0Z10101011
+001010000
+// + Targets: 
+//   Apply 0 
+//     reads: 
+//        Sensor1.temp[0]  =  x 
+//        Sensor1.temp[1]  =  x 
+//        Sensor1.temp[2]  =  x 
+//        Sensor1.temp[3]  =  x 
+//     writes: 
+//        Sensor1.en  =  0 
+//  
+//  
+// + scan vector tdi..tdo (TDR_Sensor_1.SR[3:0] sib1.sr sib2.sr) 
+11001X0Z10101011
+11101X0Z10101011
+11001X0Z10101011
+11001X0Z10101011
+11001X0Z10101011
+11001X0Z10101011
+// end of Vec file MSG
+000000000000000000000000000000110110000
