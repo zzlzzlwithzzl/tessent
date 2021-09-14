@@ -47,8 +47,8 @@
 							1'b0 : si;
 							1'b1 : fso;
 						}
-		PortGroup		tap_side {si; so; en; ce; se; ue;}
-		PortGroup		instrument_side {fso; fsi; to_en; to_ce; to_se; to_ue;}
+                PortGroup		tap_side {si; so; en; ce; se; ue;}
+                PortGroup		instrument_side {fso; fsi; to_en; to_ce; to_se; to_ue;}
 		}
 
 	Module Chip {
