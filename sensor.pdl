@@ -1,7 +1,7 @@
 	iProcsForModule INS1
 
 	iProc Read_Temperature {} {
-		iWrite 		temp1	7'bx91;
+		iWrite 		temp1	8'bx91;
 		iApply;
 		
 		iRunLoop 	10	-tck;
