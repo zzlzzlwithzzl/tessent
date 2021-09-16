@@ -141,7 +141,7 @@
 		InputPort		temp1=TDR_I3.po;
 		}			
 		AccessLink Tap1 Of STD_1149_1_2001 {
-			BSDLEntity Chip;
+			BSDLEntity SingleInstrumentChip;
                         wir_select { ScanInterface { sib1; 
                         sib2;}
                         ActiveSignals {  en_SIB ;}
