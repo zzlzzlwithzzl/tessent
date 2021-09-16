@@ -47,8 +47,8 @@
 							1'b0 : si;
 							1'b1 : fso;
 						}
-                PortGroup		tap_side {si; so; en; ce; se; ue;}
-                PortGroup		instrument_side {fso; fsi; to_en; to_ce; to_se; to_ue;}
+                ScanInterface host     {Port si; Port so;Port en;Port ce;Port se;Port ue;}
+                ScanInterface client    {Port fso;Port fsi;Port to_en;Port to_ce;Port to_se;Port to_ue;}
 		}
 
 	Module Chip {
