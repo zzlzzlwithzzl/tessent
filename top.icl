@@ -99,10 +99,13 @@
 		TCKPort tck;
 		ScanInPort tdi;
 		SelectPort	en_SIB;
+		ShiftEnPort		se;
+		CaptureEnPort	ce;
+		UpdateEnPort	ue;
 		ScanOutPort tdo { Source sib2.so; }
 		TMSPort tms;
 		TRSTPort trst;
-		
+		ScanInterface client     {Port tdi; Port tdo;Port en_SIB;Port ce;Port se;Port ue;}
 	        Instance TDR_I1 Of TDR1{
 		InputPort en = 1;
 		InputPort si = tdi;
@@ -140,12 +143,14 @@
 		Instance I3 Of INS3{
 		InputPort		temp1=TDR_I3.po;
 		}			
+		
+}
+Module ChipW {
+                Instance c1 Of Chip { }
 		AccessLink Tap1 Of STD_1149_1_2001 {
 			BSDLEntity SingleInstrumentChip;
-                        INTEST { ScanInterface {TDR_I1.client; sib2.client; 
-                        sib3.client;}
+                        INTEST { ScanInterface {c1.client;}
                         ActiveSignals {  en_SIB ;}
                         }			
 			}
-		
 }
