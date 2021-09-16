@@ -38,7 +38,7 @@ entity SingleInstrumentChip is
 	    "AUTHEN     (0011)  , " &
 	    "LOCK       (0101)   " ;
 
-    attribute INSTRUCTION_CAPTURE of SingleInstrumentChip : entity is "0001";
+    attribute INSTRUCTION_CAPTURE of SingleInstrumentChip : entity is "0101";
     attribute INSTRUCTION_DISABLE of SingleInstrumentChip : entity is "HIGHZ";
     attribute INSTRUCTION_GUARD   of SingleInstrumentChip : entity is "CLAMP";
 
