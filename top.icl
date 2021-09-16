@@ -140,14 +140,12 @@
 		Instance I3 Of INS3{
 		InputPort		temp1=TDR_I3.po;
 		}			
-//		AccessLink Tap1 Of STD_1149_1_2001 {
-//			BSDLEntity Chip;
-//                        wir_select { ScanInterface { sib1; 
-//                        sib2;}
-//                        ActiveSignals {  en_TDR_Sensor ;}
-//                        }
-//                        wdr_select { ScanInterface {sib1;
-//                        sib2; }			
-//			}
-//		}
+		AccessLink Tap1 Of STD_1149_1_2001 {
+			BSDLEntity Chip;
+                        wir_select { ScanInterface { sib1; 
+                        sib2;}
+                        ActiveSignals {  en_SIB ;}
+                        }			
+			}
+		}
 }
