@@ -30,6 +30,7 @@ entity SingleInstrumentChip is
     attribute INSTRUCTION_OPCODE of SingleInstrumentChip : entity is
             "BYPASS 	(1111,1010,1001)	, " &
             "EXTEST 	(0000)	, " &
+	    "SAMPLE 	(0000)	, " &
             "INTEST 	(1001)	, " &
             "HIGHZ  	(0100)	, " &  
 	    "IDCODE  	(0010)	, " &  
@@ -43,9 +44,9 @@ entity SingleInstrumentChip is
     attribute INSTRUCTION_GUARD   of SingleInstrumentChip : entity is "CLAMP";
 
     attribute REGISTER_ACCESS of SingleInstrumentChip : entity is
-            "BOUNDARY (EXTEST, INTEST, SAMPLE),"  &
-            "BYPASS   (BYPASS, HIGHZ, CLAMP)," &
-            "INSTR[4]   (READINSTR)" ;
+            "BOUNDARY (EXTEST, INTEST, SAMPLE, IDCODE, DEBUG),"  &
+            "BYPASS   (BYPASS, HIGHZ, CLAMP,LOCK)," &
+            "INSTR[4]   (AUTHEN)" ;
 
     attribute BOUNDARY_CELLS    of SingleInstrumentChip : entity is "BC_1";
     attribute BOUNDARY_LENGTH   of SingleInstrumentChip : entity is 16;
