@@ -1,6 +1,6 @@
 	iProcsForModule INS1
 
-	iProc Read_Temperature {} {
+	iProc Read_MBIST {} {
 		iWrite 		temp1	0x91;
 		iApply;
 		
