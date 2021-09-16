@@ -50,15 +50,15 @@ SETUP> dofile I3.pdl
 SETUP> set_current_design ChipW
 SETUP> set_system_mode analysis
 ANALYSIS> open_pattern_set pat1
-ANALYSIS> iCall c1.I1.Read_Temperature
+ANALYSIS> iCall c1.I1.Read_MBIST
 ANALYSIS> close_pattern_set
 ANALYSIS> write_patterns I1_new.svf -svf -pattern_set pat1
 ANALYSIS> open_pattern_set pat2
-ANALYSIS> iCall c1.I2.Read_Temperature
+ANALYSIS> iCall c1.I2.Read_MBIST
 ANALYSIS> close_pattern_set
 ANALYSIS> write_patterns I2_new.svf -svf -pattern_set pat2
 ANALYSIS> open_pattern_set pat3
-ANALYSIS> iCall c1.I3.Read_Temperature
+ANALYSIS> iCall c1.I3.Read_MBIST
 ANALYSIS> close_pattern_set
 ANALYSIS> write_patterns I3_new.svf -svf -pattern_set pat3
 ANALYSIS> report_pattern_sets
