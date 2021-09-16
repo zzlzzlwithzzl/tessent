@@ -33,7 +33,6 @@ entity SingleInstrumentChip is
 	    "SAMPLE 	(0000)	, " &
             "INTEST 	(1001)	, " &
             "HIGHZ  	(0100)	, " &  
-	    "IDCODE  	(0010)	, " &  
 	    "DEBUG 	(1000)	, " & 
             "CLAMP  	(1100)	, " &  
 	    "AUTHEN     (0011)  , " &
@@ -44,7 +43,7 @@ entity SingleInstrumentChip is
     attribute INSTRUCTION_GUARD   of SingleInstrumentChip : entity is "CLAMP";
 
     attribute REGISTER_ACCESS of SingleInstrumentChip : entity is
-            "BOUNDARY (EXTEST, INTEST, SAMPLE, IDCODE, DEBUG),"  &
+            "BOUNDARY (EXTEST, INTEST, SAMPLE, DEBUG),"  &
             "BYPASS   (BYPASS, HIGHZ, CLAMP,LOCK)," &
             "INSTR[4]   (AUTHEN)" ;
 
