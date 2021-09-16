@@ -47,8 +47,8 @@
 							1'b0 : si;
 							1'b1 : fso;
 						}
-                ScanInterface host     {Port si; Port so;Port en;Port ce;Port se;Port ue;}
-                ScanInterface client    {Port fso;Port fsi;Port to_en;Port to_ce;Port to_se;Port to_ue;}
+                ScanInterface client     {Port si; Port so;Port en;Port ce;Port se;Port ue;}
+                ScanInterface host    {Port fso;Port fsi;Port to_en;Port to_ce;Port to_se;Port to_ue;}
 		}
 
 	Module Chip {
@@ -88,11 +88,14 @@
 			InputPort en = TDR_Sensor_2.po;
 			}
 						
-//		AccessLink Tap1 Of STD_1149_1 {
-//			BSDL_Entity Chip;
-//			READINSTR { 
-//				ScanPath {	sib1; sib2; }
-//				ActiveSignals { en_TDR_Sensor ;}
-//				}				
-//			}
+		AccessLink Tap1 Of STD_1149_1_2001 {
+			BSDLEntity Chip;
+                        wir_select { ScanInterface { sib1; 
+                        sib2;}
+                        ActiveSignals {  en_TDR_Sensor ;}
+                        }
+                        wdr_select { ScanInterface {sib1;
+                        sib2; }			
+			}
 		}
+}
