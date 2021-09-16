@@ -1,0 +1,18 @@
+!TESSENT_PRAGMA icl_checksum 06e970183b0a14152ca4bd3a8af2d2e6_1
+!svf_cmd 0
+PIOMAP ( IN en_SIB );
+
+!TESSENT_PRAGMA pattern_set pat1
+!TESSENT_PRAGMA tester_period 100ns
+!svf_cmd 1
+FREQUENCY 10000000 HZ;
+!svf_cmd 2
+PIO (L);
+!svf_cmd 3
+TRST ON;
+!svf_cmd 4
+TRST OFF;
+!svf_cmd 5
+STATE IDLE;
+!svf_cmd 6
+RUNTEST 10 TCK;
