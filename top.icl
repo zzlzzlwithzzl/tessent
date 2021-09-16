@@ -1,14 +1,22 @@
-	Module Sensor {
-		DataInPort		en;
-		DataOutPort		temp[3:0];
+	Module INS1 {
+		DataInPort		temp1[7:0];
+		DataOutPort		temp[7:0];
 		}
-
-	Module TDR_Sensor {
+		
+        Module INS2 {
+		DataInPort		temp1[15:0];
+		DataOutPort		temp[15:0];
+		}
+        Module INS3 {
+		DataInPort		temp1[31:0];
+		DataOutPort		temp[31:0];
+		}
+	Module TDR1 {
 		ScanInPort		si;
 		ScanOutPort		so {	Source	SR[0];
 								LaunchEdge	Falling; }
-		DataInPort		pi[3:0];
-		DataOutPort		po {	Source SR[0]; }
+		DataInPort		pi[7:0];
+		DataOutPort		po[7:0] {	Source SR; }
 								
 		SelectPort		en;
 		
@@ -17,7 +25,42 @@
 		UpdateEnPort	ue;
 		TCKPort			tck;		
 		
-		ScanRegister	SR[3:0]{ ScanInSource	si;
+		ScanRegister	SR[7:0]{ ScanInSource	si;
+								 CaptureSource	pi; }							
+		}
+	Module TDR2 {
+		ScanInPort		si;
+		ScanOutPort		so {	Source	SR[0];
+								LaunchEdge	Falling; }
+		DataInPort		pi[15:0];
+		DataOutPort		po[15:0] {	Source SR; }
+								
+		SelectPort		en;
+		
+		ShiftEnPort		se;
+		CaptureEnPort	ce;
+		UpdateEnPort	ue;
+		TCKPort			tck;		
+		
+		ScanRegister	SR[15:0]{ ScanInSource	si;
+								 CaptureSource	pi; }							
+		}
+		
+	Module TDR3 {
+		ScanInPort		si;
+		ScanOutPort		so {	Source	SR[0];
+								LaunchEdge	Falling; }
+		DataInPort		pi[31:0];
+		DataOutPort		po[31:0] {	Source SR; }
+								
+		SelectPort		en;
+		
+		ShiftEnPort		se;
+		CaptureEnPort	ce;
+		UpdateEnPort	ue;
+		TCKPort			tck;		
+		
+		ScanRegister	SR[31:0]{ ScanInSource	si;
 								 CaptureSource	pi; }							
 		}
 
@@ -59,43 +102,52 @@
 		ScanOutPort tdo { Source sib2.so; }
 		TMSPort tms;
 		TRSTPort trst;
-	
-		Instance sib1 Of SIB {
-			InputPort	si = tdi;
-			InputPort	en = en_SIB;
-			InputPort	fso = TDR_Sensor_1.so;
-			}
-		Instance TDR_Sensor_1 Of TDR_Sensor {
-			InputPort en = sib1.to_en;
-			InputPort si = sib1.fsi;
-			InputPort pi = Sensor1.temp;
-			}
-		Instance Sensor1 Of Sensor {
-			InputPort en = TDR_Sensor_1.po;
-			}
-
+		
+	        Instance TDR_I1 Of TDR1{
+		InputPort en = 1;
+		InputPort si = tdi;
+		InputPort pi = I1.temp;
+		}
+		Instance I1 Of INS1{
+		DataInPort		temp1=TDR_I1.po;
+		}
+		
 		Instance sib2 Of SIB {
-			InputPort	si = sib1.so;
+			InputPort	si = TDR_I1.so;
 			InputPort	en = en_SIB;
-			InputPort	fso = TDR_Sensor_2.so;
+			InputPort	fso = TDR_I2.so;
 			}
-		Instance TDR_Sensor_2 Of TDR_Sensor {
+		Instance TDR_I2 Of TDR2 {
 			InputPort en = sib2.to_en;
 			InputPort si = sib2.fsi;
-			InputPort pi = Sensor2.temp;
+			InputPort pi = I2.temp;
 			}
-		Instance Sensor2 Of Sensor {
-			InputPort en = TDR_Sensor_2.po;
+		Instance I2 Of INS2{
+		DataInPort		temp1=TDR_I2.po;
+		}
+		
+
+		Instance sib3 Of SIB {
+			InputPort	si = sib2.so;
+			InputPort	en = en_SIB;
+			InputPort	fso = TDR_I3.so;
 			}
-						
-		AccessLink Tap1 Of STD_1149_1_2001 {
-			BSDLEntity Chip;
-                        wir_select { ScanInterface { sib1; 
-                        sib2;}
-                        ActiveSignals {  en_TDR_Sensor ;}
-                        }
-                        wdr_select { ScanInterface {sib1;
-                        sib2; }			
+		Instance TDR_I3 Of TDR3 {
+			InputPort en = sib3.to_en;
+			InputPort si = sib3.fsi;
+			InputPort pi = I3.temp;
 			}
+		Instance I3 Of INS3{
+		DataInPort		temp1=TDR_I3.po;
+		}			
+//		AccessLink Tap1 Of STD_1149_1_2001 {
+//			BSDLEntity Chip;
+//                        wir_select { ScanInterface { sib1; 
+//                        sib2;}
+//                        ActiveSignals {  en_TDR_Sensor ;}
+//                        }
+//                        wdr_select { ScanInterface {sib1;
+//                        sib2; }			
+//			}
 		}
 }
