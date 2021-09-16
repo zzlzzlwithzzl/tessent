@@ -109,7 +109,7 @@
 		InputPort pi = I1.temp;
 		}
 		Instance I1 Of INS1{
-		DataInPort		temp1=TDR_I1.po;
+		InputPort		temp1=TDR_I1.po;
 		}
 		
 		Instance sib2 Of SIB {
@@ -123,7 +123,7 @@
 			InputPort pi = I2.temp;
 			}
 		Instance I2 Of INS2{
-		DataInPort		temp1=TDR_I2.po;
+		InputPort		temp1=TDR_I2.po;
 		}
 		
 
@@ -138,7 +138,7 @@
 			InputPort pi = I3.temp;
 			}
 		Instance I3 Of INS3{
-		DataInPort		temp1=TDR_I3.po;
+		InputPort		temp1=TDR_I3.po;
 		}			
 //		AccessLink Tap1 Of STD_1149_1_2001 {
 //			BSDLEntity Chip;
