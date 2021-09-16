@@ -24,7 +24,7 @@
 		CaptureEnPort	ce;
 		UpdateEnPort	ue;
 		TCKPort			tck;		
-		
+		ScanInterface client     {Port si; Port so;Port en;Port ce;Port se;Port ue;}
 		ScanRegister	SR[7:0]{ ScanInSource	si;
 								 CaptureSource	pi; }							
 		}
@@ -142,8 +142,8 @@
 		}			
 		AccessLink Tap1 Of STD_1149_1_2001 {
 			BSDLEntity SingleInstrumentChip;
-                        INTEST { ScanInterface { sib2; 
-                        sib3;}
+                        INTEST { ScanInterface {TDR_I1.client; sib2.client; 
+                        sib3.client;}
                         ActiveSignals {  en_SIB ;}
                         }			
 			}
