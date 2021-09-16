@@ -1,0 +1,40 @@
+!TESSENT_PRAGMA icl_checksum ffaaa5acc5c667af1de3f34b2526fd1b_1
+
+!TESSENT_PRAGMA pattern_set pat3
+!TESSENT_PRAGMA tester_period 100ns
+!svf_cmd 0
+FREQUENCY 10000000 HZ;
+!svf_cmd 1
+STATE RESET;
+!svf_cmd 2
+STATE IDLE;
+!TESSENT_PRAGMA annotation Tap1.INSTRUCTION -type read -var_bits {0:3} -pin TDO -relative_cycles {0:3}
+!svf_cmd 3
+SIR 4
+    TDI(9)
+    TDO(5)
+    MASK(F);
+!TESSENT_PRAGMA annotation c1.sib2.sr -type read -var_bits {0} -pin TDO -relative_cycles {1}
+!TESSENT_PRAGMA annotation c1.sib3.sr -type read -var_bits {0} -pin TDO -relative_cycles {0}
+!svf_cmd 4
+SDR 10
+    TDI(001)
+    TDO(000)
+    MASK(003);
+!TESSENT_PRAGMA annotation c1.sib2.sr(1) -type read -var_bits {0} -pin TDO -relative_cycles {33}
+!TESSENT_PRAGMA annotation c1.sib3.sr(1) -type read -var_bits {0} -pin TDO -relative_cycles {0}
+!svf_cmd 5
+SDR 42
+    TDI(001224268AD)
+    TDO(00000000000)
+    MASK(00200000001);
+!svf_cmd 6
+RUNTEST 10 TCK;
+!TESSENT_PRAGMA annotation c1.I3.temp -type read -var_bits {0:31} -pin TDO -relative_cycles {1:32}
+!TESSENT_PRAGMA annotation c1.sib2.sr(2) -type read -var_bits {0} -pin TDO -relative_cycles {33}
+!TESSENT_PRAGMA annotation c1.sib3.sr(2) -type read -var_bits {0} -pin TDO -relative_cycles {0}
+!svf_cmd 7
+SDR 42
+    TDI(001224268AD)
+    TDO(00000000000)
+    MASK(00200000001);
