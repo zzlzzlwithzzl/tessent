@@ -1,0 +1,73 @@
+[zi6171zh-s@reserv1 ~/tessent]$ tessent -shell
+//  Tessent Shell  2014.4    Wed Nov 26 23:12:10 GMT 2014
+//                Copyright 2011-2014 Mentor Graphics Corporation
+//
+//                           All Rights Reserved.
+//
+//    THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION WHICH
+//  IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS AND IS
+//                        SUBJECT TO LICENSE TERMS.
+//
+//  Mentor Graphics software executing under x86-64 Linux.
+//  64 bit version
+//  Host: reserv1.fransg.eit.lth.se (15842 MB RAM, 16383 MB Swap)
+//
+SETUP> set_context pattern -ijtag
+SETUP>  read_icl top.icl -bsdl SingleInstrumentChip.bsd
+SETUP> dofile I1.pdl
+//  command: iProcsForModule INS1
+//  command: iProc Read_Temperature {} {
+                iWrite          temp1   0x91;
+                iApply;
+
+                iRunLoop        10      -tck;
+
+                iRead           temp;
+                iApply;
+        }
+SETUP> dofile I2.pdl
+//  command: iProcsForModule INS2
+//  command: iProc Read_Temperature {} {
+                iWrite          temp1   0x9118;
+                iApply;
+
+                iRunLoop        10      -tck;
+
+                iRead           temp;
+                iApply;
+        }
+SETUP> dofile I3.pdl
+//  command: iProcsForModule INS3
+//  command: iProc Read_Temperature {} {
+                iWrite          temp1   0x91213456;
+                iApply;
+
+                iRunLoop        10      -tck;
+
+                iRead           temp;
+                iApply;
+        }
+SETUP> set_current_design ChipW
+SETUP> set_system_mode analysis
+ANALYSIS> open_pattern_set pat1
+ANALYSIS> iCall c1.I1.Read_Temperature
+ANALYSIS> close_pattern_set
+ANALYSIS> write_patterns I1_new.svf -svf -pattern_set pat1
+ANALYSIS> open_pattern_set pat2
+ANALYSIS> iCall c1.I2.Read_Temperature
+ANALYSIS> close_pattern_set
+ANALYSIS> write_patterns I2_new.svf -svf -pattern_set pat2
+ANALYSIS> open_pattern_set pat3
+ANALYSIS> iCall c1.I3.Read_Temperature
+ANALYSIS> close_pattern_set
+ANALYSIS> write_patterns I3_new.svf -svf -pattern_set pat3
+ANALYSIS> report_pattern_sets
+
+//  name | timeplate | tester | tck   | tester | initial | active scan | network   | TAP start | TAP end | saved
+//       |           | period | ratio | cycles | iReset  | interfaces  | end state | state     | state   |
+//  -----+-----------+--------+-------+--------+---------+-------------+-----------+-----------+---------+------
+//  pat1 | (default) | 100ns  | 1     | 56     | yes     | (all)       | keep      | any       | IDLE    | yes
+//  pat2 | (default) | 100ns  | 1     | 103    | yes     | (all)       | keep      | any       | IDLE    | yes
+//  pat3 | (default) | 100ns  | 1     | 135    | yes     | (all)       | keep      | any       | IDLE    | yes
+
+ANALYSIS> exit
