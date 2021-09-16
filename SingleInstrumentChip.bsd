@@ -1,0 +1,67 @@
+entity SingleInstrumentChip is
+
+    generic (PHYSICAL_PIN_MAP : string := "DIP22_PACKAGE");
+
+    port (Outputs:out bit_vector(1 to 8);
+          Inputs:in bit_vector(1 to 8);
+          GND, VDD:linkage bit;
+          TDO:out bit;
+          TDI, TMS, TCK:in bit);
+
+    use STD_1149_1_1990.all; 
+
+    attribute PIN_MAP of SingleInstrumentChip : entity is PHYSICAL_PIN_MAP;
+
+	constant DIP22_PACKAGE : PIN_MAP_STRING := 	"Outputs	:	(13,14,15,16,17,18,19,20)	," &
+		"Inputs		:	(4,5,6,7,8,9,10,11)			," &
+		"GND		:	22							," &
+		"VDD		:	12							," &
+		"TDO		:	21							," &
+		"TDI		:	1							," &
+		"TMS		:	2							," &
+		"TCK		:	3							";
+
+    attribute TAP_SCAN_IN    of TDI : signal is true;
+    attribute TAP_SCAN_MODE  of TMS : signal is true;
+    attribute TAP_SCAN_OUT   of TDO : signal is true;
+    attribute TAP_SCAN_CLOCK of TCK : signal is (20.0e6, BOTH);
+
+    attribute INSTRUCTION_LENGTH of SingleInstrumentChip : entity is 4;
+    attribute INSTRUCTION_OPCODE of SingleInstrumentChip : entity is
+            "BYPASS 	(1111, 0000)	, " &
+            "EXTEST 	(0001, 1001)	, " &
+            "SAMPLE 	(0010, 1010)	, " &
+            "INTEST 	(0011, 1011)	, " &
+            "HIGHZ  	(0100, 1100)	, " &  
+            "CLAMP  	(0101)	, " &  
+            "READINSTR	(0111, 1000)	  ";
+
+    attribute INSTRUCTION_CAPTURE of SingleInstrumentChip : entity is "0001";
+    attribute INSTRUCTION_DISABLE of SingleInstrumentChip : entity is "HIGHZ";
+    attribute INSTRUCTION_GUARD   of SingleInstrumentChip : entity is "CLAMP";
+
+    attribute REGISTER_ACCESS of SingleInstrumentChip : entity is
+            "BOUNDARY (EXTEST, INTEST, SAMPLE),"  &
+            "BYPASS   (BYPASS, HIGHZ, CLAMP)," &
+            "INSTR[4]   (READINSTR)" ;
+
+    attribute BOUNDARY_CELLS    of SingleInstrumentChip : entity is "BC_1";
+    attribute BOUNDARY_LENGTH   of SingleInstrumentChip : entity is 16;
+    attribute BOUNDARY_REGISTER of SingleInstrumentChip : entity is
+    "15   (BC_1, Inputs(1), input, X),"   &
+    "14   (BC_1, Inputs(2), input, X),"   &
+    "13   (BC_1, Inputs(3), input, X),"   &
+    "12   (BC_1, Inputs(4), input, X),"   &
+    "11   (BC_1, Inputs(5), input, X),"   &
+    "10   (BC_1, Inputs(6), input, X),"   &
+    "9   (BC_1, Inputs(7), input, X),"   &
+    "8   (BC_1, Inputs(8), input, X),"    &
+    "7   (BC_1, Outputs(8), output2, X),"  &
+    "6   (BC_1, Outputs(7), output2, X),"  &
+    "5  (BC_1, Outputs(6), output2, X),"  &
+    "4  (BC_1, Outputs(5), output2, X),"  &
+    "3  (BC_1, Outputs(4), output2, X),"  &
+    "2  (BC_1, Outputs(3), output2, X),"  &
+    "1  (BC_1, Outputs(2), output2, X),"  &
+    "0  (BC_1, Outputs(1), output2, X)" ;
+end SingleInstrumentChip;
