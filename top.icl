@@ -142,7 +142,7 @@
 		}			
 		AccessLink Tap1 Of STD_1149_1_2001 {
 			BSDLEntity SingleInstrumentChip;
-                        wir_select { ScanInterface { sib1; 
+                        INTEST { ScanInterface { sib1; 
                         sib2;}
                         ActiveSignals {  en_SIB ;}
                         }			
