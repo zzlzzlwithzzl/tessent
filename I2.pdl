@@ -1,0 +1,11 @@
+iProcsForModule INS2
+
+	iProc Read_Temperature {} {
+		iWrite 		temp1	0x9118;
+		iApply;
+		
+		iRunLoop 	10	-tck;
+		
+		iRead		temp;
+		iApply;
+	}
