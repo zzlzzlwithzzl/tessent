@@ -102,7 +102,7 @@
 		ShiftEnPort		se;
 		CaptureEnPort	ce;
 		UpdateEnPort	ue;
-		ScanOutPort tdo { Source sib2.so; }
+		ScanOutPort tdo { Source sib3.so; }
 		TMSPort tms;
 		TRSTPort trst;
 		ScanInterface client     {Port tdi; Port tdo;Port en_SIB;Port ce;Port se;Port ue;}
