@@ -28,13 +28,15 @@ entity SingleInstrumentChip is
 
     attribute INSTRUCTION_LENGTH of SingleInstrumentChip : entity is 4;
     attribute INSTRUCTION_OPCODE of SingleInstrumentChip : entity is
-            "BYPASS 	(1111, 0000)	, " &
-            "EXTEST 	(0001, 1001)	, " &
-            "SAMPLE 	(0010, 1010)	, " &
-            "INTEST 	(0011, 1011)	, " &
-            "HIGHZ  	(0100, 1100)	, " &  
-            "CLAMP  	(0101)	, " &  
-            "READINSTR	(0111, 1000)	  ";
+            "BYPASS 	(1111,1010,1001)	, " &
+            "EXTEST 	(0000)	, " &
+            "INTEST 	(1001)	, " &
+            "HIGHZ  	(0100)	, " &  
+	    "IDCODE  	(0010)	, " &  
+	    "DEBUG 	(1000)	, " & 
+            "CLAMP  	(1100)	, " &  
+	    "AUTHEN     (0011)  , " &
+	    "LOCK       (0101)   " ;
 
     attribute INSTRUCTION_CAPTURE of SingleInstrumentChip : entity is "0001";
     attribute INSTRUCTION_DISABLE of SingleInstrumentChip : entity is "HIGHZ";
